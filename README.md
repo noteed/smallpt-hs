@@ -7,7 +7,7 @@ illumination path tracer written in 99 lines of C++. The port is written in
 
 There are two major differences: performance and argument parsing. The Haskell
 code compiled with GHC 6.12.1 is about 4.5 times slower than the C++ version.
-(I only tested on my anemic Atom N450-powered netbook...) The C++ code takes on
+(I only tested on my anemic Atom N450-powered netbook...) The C++ code takes an
 optional argument, which should be a integer greater than 4.
 
 Give it a spin
@@ -21,6 +21,6 @@ entry point as a C symbol callable from Haskell via FFI.
 Every attempt so far use the vector package. The 99 lines file is derived from
 Smallpt/Mutable.hs. The Storable code doesn't improve the performance and is
 less convenient to use. The Unboxed code lose in performance because the Vec
-type can't benefit from an explicit inline pragma.
+type can't benefit from an explicit unpack pragma.
 
 If you can make the code faster or easier to read, please let me know!
