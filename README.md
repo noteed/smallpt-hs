@@ -24,3 +24,10 @@ less convenient to use. The Unboxed code lose in performance because the Vec
 type can't benefit from an explicit unpack pragma.
 
 If you can make the code faster or easier to read, please let me know!
+
+License
+-------
+
+Although the LICENSE file is a BSD3 license, I should contact Kevin Beason (the
+original author of the C++ code) to make sure it is ok. The linked site above
+has the original LICENSE.
