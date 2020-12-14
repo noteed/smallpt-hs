@@ -1,6 +1,10 @@
 smallpt-hs
 ==========
 
+**Update**: [bollu](https://github.com/bollu) and
+[davean](https://github.com/davean) have made an [optmized
+version](https://github.com/bollu/smallpt-opt).
+
 This is a port of [smallpt](http://www.kevinbeason.com/smallpt/), a global
 illumination path tracer written in 99 lines of C++. The port is written in
 99 lines of Haskell.
