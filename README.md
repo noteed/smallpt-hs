@@ -10,6 +10,15 @@ code compiled with GHC 6.12.1 is about 4.5 times slower than the C++ version.
 (I only tested on my anemic Atom N450-powered netbook...) The C++ code takes an
 optional argument, which should be a integer greater than 4.
 
+
+Compiling with Nix
+------------------
+
+```
+nix-shell -p gnumake -p "haskellPackages.ghcWithPackages (pkgs: [pkgs.vector pkgs.criterion])" -p gcc --run make
+```
+
+
 Give it a spin
 --------------
 
@@ -24,6 +33,7 @@ less convenient to use. The Unboxed code lose in performance because the Vec
 type can't benefit from an explicit unpack pragma.
 
 If you can make the code faster or easier to read, please let me know!
+
 
 License
 -------

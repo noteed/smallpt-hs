@@ -133,7 +133,7 @@ smallpt w h nsamps = do
       dir = norm $ (0, -0.042612, -1)
       cx = (fromIntegral w * 0.5135 / fromIntegral h, 0, 0)
       cy = norm (cx `cross` dir) `mulvs` 0.5135
-  c <- VM.newWith (w * h) zerov
+  c <- VM.replicate (w * h) zerov
   allocaArray 3 $ \xi ->
     flip mapM_ [0..h-1] $ \y -> do
       --hPrintf stderr "\rRendering (%d spp) %5.2f%%" (samps*4::Int) (100.0*fromIntegral y/(fromIntegral h-1)::Double)

@@ -43,8 +43,8 @@ radiance ray@(Ray o d) depth xi = case intersects ray of
   where
     x=o+(d *. t); n=norm$x-p; maxv (Vec a b c)=maximum [a,b,c]
     nl=fi(n`dot`d<0)n$n*.(-1); depth'=depth+1; pr=maxv c;   -- max refl.
-    continue f = case refl of
-{ DIFF -> do                                 -- ideal DIFFuse reflection
+    continue f = case refl of {
+  DIFF -> do                                 -- ideal DIFFuse reflection
   r1 <- ((2*pi)*) `fmap` erand48 xi; r2 <- erand48 xi; let r2s=sqrt r2
   let u=norm$fi(abs wx>0.1) vy vx%.w; v=w%.u; w@(Vec wx _ _)=nl
       d' = norm$(u*.(cos r1*r2s))+(v*.(sin r1*r2s))+(w*.sqrt(1-r2))
@@ -69,7 +69,7 @@ radiance ray@(Ray o d) depth xi = case intersects ray of
 smallpt w h ns = do  -- number of samples, camera position and direction
   let samps=ns`div`4;pos=Vec 50 52 295.6;dir=norm$Vec 0 (-0.042612) (-1)
       cx=Vec (flt w * 0.5135 / flt h) 0 0; cy=norm (cx %. dir) *. 0.5135
-  c <- VM.newWith (w * h) black; allocaArray 3 $ \xi ->
+  c <- VM.replicate (w * h) black; allocaArray 3 $ \xi ->
   -- no parallelism yet
 	flip mapM_ [0..h-1] $ \y -> do               -- loop over image rows
       let fmt = "\rRendering (%d spp) %5.2f%%"; flt' = fromIntegral
@@ -77,8 +77,8 @@ smallpt w h ns = do  -- number of samples, camera position and direction
       writeXi xi y; flip mapM_ [0..w-1] $ \x -> do
         let i = (h-y-1) * w + x in flip mapM_ [0..1] $ \sy -> do
           flip mapM_ [0..1] $ \sx -> do
-            r <- newIORef black; flip mapM_ [0..samps-1] $ \s -> do
-{ r1<-(2*)`fmap`erand48 xi; let dx=fi (r1<1) (sqrt r1-1) (1-sqrt(2-r1))
+            r <- newIORef black; flip mapM_ [0..samps-1] $ \s -> do {
+  r1<-(2*)`fmap`erand48 xi; let dx=fi (r1<1) (sqrt r1-1) (1-sqrt(2-r1))
 ; r2<-(2*)`fmap`erand48 xi; let dy=fi (r2<1) (sqrt r2-1) (1-sqrt(2-r2))
 ; let d = (cx *. (((sx + 0.5 + dx)/2 + flt x)/flt w - 0.5)) +
           (cy *. (((sy + 0.5 + dy)/2 + flt y)/flt h - 0.5)) + dir

@@ -1,4 +1,4 @@
-all: bench profile smallpt-hs
+all: bench smallpt-hs # profile
 
 profile.prof: profile
 	./profile +RTS -p
